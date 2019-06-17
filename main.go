@@ -12,20 +12,6 @@ import (
 	"time"
 )
 
-func cassbackup(timestamp string) {
-		out, err := exec.Command("/cassandra_gcloud_backup.sh", timestamp ).Output()
-		if err != nil {
-			cassandrbackup.With(prometheus.Labels{"env_label": "app_env"}).Set(0)
-			fmt.Println("Command Failed")
-			fmt.Println(string(out[:]))
-			fmt.Printf("%s", err)
-		}
-		cassandrbackup.With(prometheus.Labels{"env_label": "app_env"}).Set(1)
-		fmt.Println("Command Successfully Executed")
-		output := string(out[:])
-		fmt.Println(output)
-}
-
 func esbackup(timestamp string) {
 		out, err := exec.Command("/elasticsearch_backup.sh", timestamp ).Output()
 		if err != nil {
